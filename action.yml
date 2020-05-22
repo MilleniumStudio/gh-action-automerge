@@ -1,0 +1,36 @@
+name: 'AutoMerge'
+description: 'Automatically merge a branch into another.'
+
+branding:
+  icon: 'git-merge'
+  color: 'blue'
+
+inputs:
+  source_branch:
+    description: 'Name of the source branch'
+    required: true
+  destination_branch:
+    description: 'Name of the destination branch'
+    required: true
+  allow_ff:
+    description: 'Allow fast forward merge'
+    required: false
+    default: false
+  ff_only:
+    description: 'Refuse to perform a non fast forward merge (requires allow_ff=true)'
+    required: false
+    default: false
+  user_name:
+    description: 'User name for git commits'
+    required: false
+    default: 'GitHub AutoMerge Action'
+  user_email:
+    description: 'User email for git commits'
+    required: false
+    default: 'actions@github.com'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.myInput }}
