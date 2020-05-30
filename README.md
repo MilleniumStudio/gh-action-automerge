@@ -79,3 +79,21 @@ User name for git commits (default `GitHub AutoMerge Action`).
 ### `user_email`
 
 User email for git commits (default `actions@github.com`).
+
+### `push_token`
+
+Environment variable containing the token to use for push (default
+`GITHUB_TOKEN`).
+Useful for pushing on protected branches.
+Using a secret to store this variable value is strongly recommended, since this
+value will be printed in the logs.
+The `GITHUB_TOKEN` is still used for API calls, therefore both token should be
+available.
+
+```yml
+      with:
+        push_token: 'FOO_TOKEN'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FOO_TOKEN: ${{ secrets.FOO_TOKEN }}
+```
