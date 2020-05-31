@@ -22,10 +22,10 @@ git config --global user.email "$INPUT_USER_EMAIL"
 
 # Fetch branches
 git fetch origin $INPUT_SOURCE_BRANCH
-git checkout -B $INPUT_SOURCE_BRANCH origin/$INPUT_SOURCE_BRANCH
+git switch -C $INPUT_SOURCE_BRANCH origin/$INPUT_SOURCE_BRANCH
 
 git fetch origin $INPUT_DESTINATION_BRANCH
-git checkout -B $INPUT_DESTINATION_BRANCH origin/$INPUT_DESTINATION_BRANCH
+git switch -C $INPUT_DESTINATION_BRANCH origin/$INPUT_DESTINATION_BRANCH
 
 if git merge-base --is-ancestor $INPUT_SOURCE_BRANCH $INPUT_DESTINATION_BRANCH; then
   echo "No merge is necessary"
