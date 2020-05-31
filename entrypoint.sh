@@ -2,11 +2,6 @@
 
 set -e
 
-if [[ -z "${!INPUT_PUSH_TOKEN}" ]]; then
-  echo "INPUT_PUSH_TOKEN env variable is not set"
-  exit 1
-fi
-
 FF_MODE="--no-ff"
 if $INPUT_ALLOW_FF; then
   FF_MODE="--ff"
@@ -15,9 +10,7 @@ if $INPUT_ALLOW_FF; then
   fi
 fi
 
-# Init
-git remote -v
-#git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com/$GITHUB_REPOSITORY.git
+# Config git user
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
 
