@@ -22,12 +22,14 @@ on:
 
 jobs:
   automerge:
-
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: true
+        fetch-depth: 50
 
     - name: AutoMerge
       uses: MilleniumStudio/gh-action-automerge@v1.0.0
