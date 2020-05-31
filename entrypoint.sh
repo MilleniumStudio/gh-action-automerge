@@ -20,9 +20,11 @@ git remote set-url origin https://x-access-token:${!INPUT_PUSH_TOKEN}@github.com
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
 
+git branch
+
 # Fetch branches
-git fetch origin $INPUT_SOURCE_BRANCH
-git switch -C $INPUT_SOURCE_BRANCH origin/$INPUT_SOURCE_BRANCH
+# git fetch origin $INPUT_SOURCE_BRANCH
+# git switch -C $INPUT_SOURCE_BRANCH origin/$INPUT_SOURCE_BRANCH
 
 git fetch origin $INPUT_DESTINATION_BRANCH
 git switch -C $INPUT_DESTINATION_BRANCH origin/$INPUT_DESTINATION_BRANCH
@@ -37,7 +39,11 @@ echo "'AutoMerge Action' is trying to merge the '$INPUT_SOURCE_BRANCH' branch in
 echo
 
 # Merge the branches
-git merge $FF_MODE --no-edit $INPUT_SOURCE_BRANCH
+git merge $FF_MODE --no-edit origin/$INPUT_SOURCE_BRANCH
 
 # Push the branch
 git push origin $INPUT_DESTINATION_BRANCH
+
+# cleanup
+git branch -D $INPUT_SOURCE_BRANCH
+git branch -D $INPUT_DESTINATION_BRANCH
