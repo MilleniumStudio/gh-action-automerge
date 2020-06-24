@@ -14,6 +14,10 @@ fi
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
 
+# Fetch source branch
+git fetch origin $INPUT_SOURCE_BRANCH
+git switch -C $INPUT_SOURCE_BRANCH origin/$INPUT_SOURCE_BRANCH
+
 # Fetch destination branch
 git fetch origin $INPUT_DESTINATION_BRANCH
 git switch -C $INPUT_DESTINATION_BRANCH origin/$INPUT_DESTINATION_BRANCH
