@@ -3,9 +3,9 @@
 set -e
 
 FF_MODE="--no-ff"
-if $INPUT_ALLOW_FF; then
+if [[ "$INPUT_ALLOW_FF" == "true" ]]; then
   FF_MODE="--ff"
-  if $INPUT_FF_ONLY; then
+  if [[ "$INPUT_FF_ONLY" == "true" ]]; then
     FF_MODE="--ff-only"
   fi
 fi
