@@ -10,6 +10,8 @@ if [[ "$INPUT_ALLOW_FF" == "true" ]]; then
   fi
 fi
 
+git config --global --add safe.directory /github/workspace
+
 # Config git user
 git config --global user.name "$INPUT_USER_NAME"
 git config --global user.email "$INPUT_USER_EMAIL"
