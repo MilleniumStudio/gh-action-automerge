@@ -2,13 +2,7 @@
 
 set -e
 
-FF_MODE="--no-ff"
-if [[ "$INPUT_ALLOW_FF" == "true" ]]; then
-  FF_MODE="--ff"
-  if [[ "$INPUT_FF_ONLY" == "true" ]]; then
-    FF_MODE="--ff-only"
-  fi
-fi
+FF_MODE="--ff-only"  # Always use fast-forward mode
 
 git config --global --add safe.directory /github/workspace
 
@@ -25,16 +19,17 @@ git fetch origin $INPUT_DESTINATION_BRANCH
 git switch -C $INPUT_DESTINATION_BRANCH origin/$INPUT_DESTINATION_BRANCH
 
 if git merge-base --is-ancestor $INPUT_SOURCE_BRANCH $INPUT_DESTINATION_BRANCH; then
-  echo "No merge is necessary"
+  echo "No rebase is necessary"
   exit 0
 fi;
 
 echo
-echo "'AutoMerge Action' is trying to merge the '$INPUT_SOURCE_BRANCH' branch into the '$INPUT_DESTINATION_BRANCH' branch"
+echo "'AutoRebase Action' is trying to rebase the '$INPUT_SOURCE_BRANCH' branch onto the '$INPUT_DESTINATION_BRANCH' branch"
 echo
 
-# Merge the branches
-git merge $FF_MODE --no-edit origin/$INPUT_SOURCE_BRANCH
+# Rebase the branches
+git pull origin $INPUT_DESTINATION_BRANCH
+git rebase $FF_MODE origin/$INPUT_SOURCE_BRANCH
 
-# Push the branch
-git push origin $INPUT_DESTINATION_BRANCH
+# Push the rebased branch
+git push origin $INPUT_DESTINATION_BRANCH -f
