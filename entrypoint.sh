@@ -2,7 +2,13 @@
 
 set -e
 
-FF_MODE="--ff-only"  # Always use fast-forward mode
+FF_MODE="--no-ff"
+if [[ "$INPUT_ALLOW_FF" == "true" ]]; then
+  FF_MODE="--ff"
+  if [[ "$INPUT_FF_ONLY" == "true" ]]; then
+    FF_MODE="--ff-only"
+  fi
+fi
 
 git config --global --add safe.directory /github/workspace
 
@@ -32,4 +38,4 @@ git pull origin $INPUT_DESTINATION_BRANCH
 git rebase $FF_MODE origin/$INPUT_SOURCE_BRANCH
 
 # Push the rebased branch
-git push origin $INPUT_DESTINATION_BRANCH -f
+git push origin $INPUT_DESTINATION_BRANCH
